@@ -1,20 +1,22 @@
 import { LOGO_URL } from "./../utils/Constants";
+import {Link} from "react-router-dom"
 const Header = () => {
   return (
     <header className="header">
       <div className="logo">
-        <img src={LOGO_URL} />
+        <img src={LOGO_URL} /><h1> Foodie's Paradise</h1>
       </div>
       <nav className="nav">
         <ul className="nav-menu">
           <li>
-            <a href="#">Home</a>
+            <Link to="/">Home</Link>
           </li>
           <li>
-            <a href="#">About Us</a>
+            <Link to="/about">About Us</Link>
           </li>
           <li>
-            <a href="#">Contact Us</a>
+          
+            <Link to="/contact">Contact Us</Link>
           </li>
           <li>
             <a href="#">Cart</a>

@@ -1,68 +1,55 @@
+// Main imports
 import React from "react";
 import ReactDOM from "react-dom/client";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Outlet
+} from "react-router-dom";
+
 import Header from "./Components/Header";
 import Body from "./Components/Body";
+import About from "./Components/About";
+import Contact from "./Components/Contact";
+import Error from "./Components/Error";
+import RestaurantMenu from "./Components/RestaurantMenu";
+
+// Layout with nested routes
+const AppLayout = () => {
+  return (
+    <div className="app">
+      <h1 className="text-3xl font-bold underline">
+      Hello world!
+    </h1>
+      <Header />
+      <Outlet />
+    </div>
+  );
+};
+
+// Routes
+const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <AppLayout />,
+      errorElement:<Error/>,
+      children: [
+        { path: '', element: <Body /> },
+        { path: 'about', element: <About /> },
+        { path: 'contact', element: <Contact /> },
+         { path: '/restaurants/:resId', element: <RestaurantMenu /> }
+      ],
+    },
+  ],
+  {
+    future: {
+      v7_startTransition: true,
+    },
+  }
+);
 
 
-// // ✅ Add key to each child in the array
-// const header = React.createElement(
-//   "h1",
-//   { id: "heading121", xyz: "abc", key: "header1" },
-//   "bhai react mei chla do"
-// );
-
-// const header2 = React.createElement(
-//   "h2",
-//   { id: "heading2212121", xyz: "abc", key: "header2" },
-//   "bhai react mei chla do"
-// );
-
-// // ✅ Children array now has unique keys
-// const parent = React.createElement("div", { id: "parent" }, [header, header2]);
-
-// // Render parent created via React.createElement
-// const root = ReactDOM.createRoot(document.getElementById("root"));
-// root.render(parent);
-
-// // JSX version
-// const h1Tag = <h1 id="heading" classNameName="head" >Namaste By JSX</h1>;
-
-// // Render JSX to another root
-// const jsxroot = ReactDOM.createRoot(document.getElementById("jsxroot"));
-// jsxroot.render(h1Tag);
-// const number=500;
-// const TitleComponent=()=>(
-//   <div classNameName="container">
-//     {number} {h1Tag}
-//   <h1>Title</h1>
-//   </div>
-  
-// )
-// const HeadingComponent=()=>(
-//    <><TitleComponent />
-//    <h1>Welcome to Functionla React compoent</h1></>
-  
-// )
-
-
-
-// // Render JSX to another root
-// const compoentRot = ReactDOM.createRoot(document.getElementById("cmpRoot"));
-// compoentRot.render(<HeadingComponent/> );
-
-
-
-
-
-
-
-const AppLayout =()=>(
-<div className="app">
-  <Header/>
-  <Body/>
-</div>
-
-)
-
-const compoentRot = ReactDOM.createRoot(document.getElementById("cmpRoot"));
-compoentRot.render(<AppLayout/> );
+// Render
+const root = ReactDOM.createRoot(document.getElementById("cmpRoot"));
+root.render(<RouterProvider router={router} />);
